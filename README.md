@@ -94,3 +94,5 @@ wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
 - 支持google搜索
 - 不同机型，不同答题app的配置参数
 
+
+> 作者是在mac+ios的平台上验证，其他平台暂未验证，本代码只供交流学习使用。
