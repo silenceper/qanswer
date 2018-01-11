@@ -12,18 +12,18 @@
 
 **结果说明：**
 
-- 结果数：通过题目+答案的搜索形式在搜索引擎中的结果数量
+- 结果数：通过题目+答案的搜索形式在搜索引擎中的结果数量
 
-- 答案出现频率：通过搜索题目，答案在第一页结果中出现的频率
+- 答案出现频率：通过搜索题目，答案在第一页结果中出现的频率
 
-结果并不是100%的，只给出一个参考值，还需用户自己判断。理论上可支持多款APP，只需要修改`config.yml`中的题目和答案的截取位置即可。
+结果并不是100%的，只给出一个参考值，还需用户自己判断。理论上可支持多款APP，只需要修改`config.yml`中的题目和答案的截取位置即可。
 
 
 ## 编译安装
 
 安装go环境，执行 `make build` 生成`qanswer`可执行文件。
 
-### 配置文件参考
+### 配置文件
 执行`qanswer`时，默认读取当前目录下的`config.yml`配置文件。
 
 ```
@@ -51,12 +51,12 @@ baidu_secret_key: "xxx...."
 
 ```
 
-### iOS 
+### iOS 
 
 - 安装WDA ：[iOS 真机如何安装 WebDriverAgent](https://testerhome.com/topics/7220)
-- 编译得到`qanswer`文件
-- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数
-- 开始
+- 编译得到`qanswer`文件
+- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数
+- 按空格键开始
 
 
 ### Android
@@ -65,17 +65,17 @@ baidu_secret_key: "xxx...."
 
 
 
-## 百度ocr
+## 百度ocr
 `ocr_type: baidu`
 
-如果使用[百度ocr](https://cloud.baidu.com/product/ocr.html)，则需要预先申请api key 和secret key ，并且免费的额度有限
+如果使用[百度ocr](https://cloud.baidu.com/product/ocr.html)，则需要预先申请api key 和secret key ，并且免费的额度有限
 
 ## tesseract
 `ocr_type: tesseract`
 
 安装tesseract以及简体中文包。
 
-以mac:为例
+以mac:为例
 
 ```
 brew install tesseract
@@ -84,7 +84,7 @@ wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
 ```
 
 其他系统的安装说明：https://github.com/tesseract-ocr/tesseract/wiki
-
+
 
 
 ### TODO:
@@ -92,5 +92,5 @@ wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
 - 验证android adb方式
 - 更友好，更快的展示
 - 支持google搜索
-- 不同机型，不同答题app的配置参数
+- 不同机型，不同答题app的配置参数
 
