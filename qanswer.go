@@ -40,9 +40,9 @@ func Run() {
 		log.SetLevel(log.LOG_LEVEL_INFO)
 	}
 
-	color.Cyan("基本配置：")
-	color.Cyan("平台：%s; 图片识别方式：%s", cfg.Device, cfg.OcrType)
-	color.Yellow("\n请按空格键开始搜索答案：")
+	color.Cyan("配置文件：%s", *cfgFilename)
+	color.Cyan("设备：%s; 图片识别方式：%s", cfg.Device, cfg.OcrType)
+	color.Yellow("\n请按空格键开始搜索答案...")
 
 Loop:
 	for {
@@ -51,7 +51,7 @@ Loop:
 			switch ev.Key {
 			case termbox.KeySpace:
 				answerQuestion(cfg)
-				color.Yellow("\n\n请按空格键开始搜索答案：")
+				color.Yellow("\n\n请按空格键开始搜索答案...")
 			default:
 				break Loop
 			}
@@ -62,7 +62,7 @@ Loop:
 
 func answerQuestion(cfg *config.Config) {
 	start := time.Now()
-	color.Cyan("正在开始搜索....")
+	color.Cyan("正在开始搜索....\n")
 	//区分ios 或android 获取图像
 	screenshot := NewScreenshot(cfg)
 	png, err := screenshot.GetImage()
@@ -118,11 +118,13 @@ func answerQuestion(cfg *config.Config) {
 	//搜索答案并显示
 	result := GetSearchResult(questionText, answerArr)
 	for engine, answerResult := range result {
-		color.Yellow("\n%s的搜索结果:", engine)
-		color.Cyan("题目：%s \n", questionText)
+		color.Red("================%s搜索==============", engine)
+		color.Cyan("%s \n", questionText)
+		color.Yellow("答案：")
 		for key, val := range answerResult {
-			color.Green("%s : 结果数 %d ， 答案出现频率： %d", answerArr[key], val.Sum, val.Freq)
+			color.Green("%s : 结果总数 %d ， 答案出现频率： %d", answerArr[key], val.Sum, val.Freq)
 		}
+		color.Red("======================================")
 	}
 	color.Cyan("\n耗时：%v", time.Now().Sub(start))
 }
