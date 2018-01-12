@@ -4,6 +4,7 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/ngaut/log"
@@ -52,6 +53,7 @@ Loop:
 }
 
 func answerQuestion(cfg *config.Config) {
+	start := time.Now()
 	color.Cyan("正在开始搜索....")
 	//区分ios 或android 获取图像
 	screenshot := NewScreenshot(cfg)
@@ -74,10 +76,10 @@ func answerQuestion(cfg *config.Config) {
 	var questionText string
 	go func() {
 		defer wg.Done()
-		//TIPS: 去除第一个数字 1-9 题目标号
+		//TIPS: 去除第一个数字 1-9 题目标号等干扰字符
 		//虽然有12个数字，但是 10-12 与最后的数字识别混在一起了
 		questionText, err = ocr.GetText(proto.QuestionImage)
-		replaceRe, _ := regexp.Compile(`^[1-9]{0,1}\'{0,1}`)
+		replaceRe, _ := regexp.Compile(`^[1-9]?\'?\.?`)
 		questionText = replaceRe.ReplaceAllString(questionText, "")
 		if err != nil {
 			log.Errorf("识别题目失败，%v", err)
@@ -114,6 +116,7 @@ func answerQuestion(cfg *config.Config) {
 			color.Green("%s : 结果数 %d ， 答案出现频率： %d", answerArr[key], val.Sum, val.Freq)
 		}
 	}
+	color.Cyan("\n耗时：%v", time.Now().Sub(start))
 }
 
 func processQuestion(text string) string {
