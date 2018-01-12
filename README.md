@@ -25,6 +25,7 @@
 
 ### 配置文件
 
+默认为`./config.yml`文件，也可通过`-config`参数指定自定义路径。
 
 执行`qanswer`时，默认读取当前目录下的`config.yml`配置文件。
 
@@ -34,7 +35,7 @@
 
 ```
 # 是否开始调试模式
-debug: false 
+debug: false
 # 对应的设备类型：ios or android
 device: ios
 # 使用的ocr工具：baidu or tesseract
@@ -57,7 +58,7 @@ baidu_secret_key: "xxx...."
 
 ```
 
-### iOS 
+### iOS
 `device: ios`
 
 

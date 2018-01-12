@@ -33,12 +33,19 @@ type Config struct {
 
 var cfg *Config
 
+var cfgFilename = "./config.yml"
+
+//SetConfigFile 设置配置文件地址
+func SetConfigFile(path string) {
+	cfgFilename = path
+}
+
 //GetConfig 解析配置
 func GetConfig() *Config {
 	if cfg != nil {
 		return cfg
 	}
-	filename, _ := filepath.Abs("./config.yml")
+	filename, _ := filepath.Abs(cfgFilename)
 	yamlFile, err := ioutil.ReadFile(filename)
 
 	if err != nil {

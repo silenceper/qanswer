@@ -1,6 +1,7 @@
 package qanswer
 
 import (
+	"flag"
 	"regexp"
 	"strings"
 	"sync"
@@ -14,8 +15,15 @@ import (
 	"github.com/silenceper/qanswer/util"
 )
 
+var cfgFilename = flag.String("config", "./config.yml", "配置文件路径")
+
+func init() {
+	flag.Parse()
+}
+
 //Run start run
 func Run() {
+	config.SetConfigFile(*cfgFilename)
 
 	cfg := config.GetConfig()
 	err := util.MkDirIfNotExist(proto.ImagePath)
