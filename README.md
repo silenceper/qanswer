@@ -1,6 +1,6 @@
-# 快速答题
+# 答题神器
 
-《冲顶大会》，《百万英雄》... 答题神奇，顺利吃鸡！
+《冲顶大会》，《百万英雄》等答题游戏的答题神器，顺利吃鸡！
 
 通过抓取手机屏幕截图经过文字识别，结合搜索引擎给出一个参考值。
 
@@ -58,14 +58,17 @@ baidu_secret_key: "xxx...."
 ```
 
 ### iOS 
+`device: ios`
+
 
 - 安装WDA ：[iOS 真机如何安装 WebDriverAgent](https://testerhome.com/topics/7220)
 - 编译得到`qanswer`文件
-- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数
+- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数，并且指定`wda_address` WDA 连接地址
 - 按空格键开始
 
 
 ### Android
+`device: android`
 
 > TIPS:未验证
 
