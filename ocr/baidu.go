@@ -7,8 +7,11 @@ import (
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 
+	"github.com/silenceper/qanswer/cache"
 	"github.com/silenceper/qanswer/config"
+	"github.com/silenceper/qanswer/proto"
 	"github.com/silenceper/qanswer/util"
 )
 
@@ -17,7 +20,6 @@ type Baidu struct {
 	apiKey    string
 	secretKey string
 
-	accessToken string
 	sync.RWMutex
 }
 
@@ -56,7 +58,7 @@ func (baidu *Baidu) GetText(imgPath string) (string, error) {
 
 	postData := url.Values{}
 	postData.Add("image", base64Data)
-	body, err := util.PostForm(uri, postData, 5)
+	body, err := util.PostForm(uri, postData, 6)
 	if err != nil {
 		return "", err
 	}
@@ -69,7 +71,7 @@ func (baidu *Baidu) GetText(imgPath string) (string, error) {
 	replaceRe, _ := regexp.Compile(`^[1-9]{0,1}`)
 	for k, words := range wordResults.WordsResult {
 		//TIPS: 去除第一个数字 1-9
-		//虽然有12个字符，但是 10-12 与最后的数字识别混在一起了
+		//虽然有12个数字，但是 10-12 与最后的数字识别混在一起了
 		if k == 0 {
 			words.Words = replaceRe.ReplaceAllString(words.Words, "")
 		}
@@ -82,8 +84,11 @@ func (baidu *Baidu) GetText(imgPath string) (string, error) {
 func (baidu *Baidu) getAccessToken() (accessToken string, err error) {
 	baidu.Lock()
 	defer baidu.Unlock()
-	if baidu.accessToken != "" {
-		accessToken = baidu.accessToken
+
+	c := cache.GetCache()
+	cacheAccessToken, found := c.Get(proto.BaiduAccessTokenKey)
+	if found {
+		accessToken = cacheAccessToken.(string)
 		return
 	}
 	uri := fmt.Sprintf("https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", baidu.apiKey, baidu.secretKey)
@@ -98,6 +103,10 @@ func (baidu *Baidu) getAccessToken() (accessToken string, err error) {
 		return
 	}
 	accessToken = res.AccessToken
-	baidu.accessToken = accessToken
+	if accessToken != "" {
+		//set cache
+		c.Set(proto.BaiduAccessTokenKey, accessToken, time.Second*time.Duration((res.ExpiresIn-100)))
+	}
+
 	return
 }

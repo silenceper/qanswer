@@ -11,12 +11,14 @@ import (
 )
 
 func saveImage(png image.Image, cfg *config.Config) error {
-	screenshotPath := fmt.Sprintf("%s/screenshot.png", proto.ImagePath)
-	err := util.SavePNG(screenshotPath, png)
-	if err != nil {
-		return fmt.Errorf("保存截图失败，%v", err)
-	}
-	log.Debugf("保存完整截图成功，%s", screenshotPath)
+	go func() {
+		screenshotPath := fmt.Sprintf("%sscreenshot.png", proto.ImagePath)
+		err := util.SavePNG(screenshotPath, png)
+		if err != nil {
+			log.Errorf("保存截图失败，%v", err)
+		}
+		log.Debugf("保存完整截图成功，%s", screenshotPath)
+	}()
 
 	//裁剪图片
 	questionImg, answerImg, err := cutImage(png, cfg)
