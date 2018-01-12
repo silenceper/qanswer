@@ -52,14 +52,17 @@ baidu_secret_key: "xxx...."
 ```
 
 ### iOS 
+`device: ios`
+
 
 - 安装WDA ：[iOS 真机如何安装 WebDriverAgent](https://testerhome.com/topics/7220)
 - 编译得到`qanswer`文件
-- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数
+- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数，并且指定`wda_address` WDA 连接地址
 - 按空格键开始
 
 
 ### Android
+`device: android`
 
 > TIPS:未验证
 
