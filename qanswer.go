@@ -134,5 +134,13 @@ func processAnswer(text string) []string {
 	log.Debug(text)
 	text = strings.Replace(text, " ", "", -1)
 	arr := strings.Split(text, "\n")
-	return arr
+	//去除空白
+	textArr := []string{}
+	for _, val := range arr {
+		if strings.TrimSpace(val) == "" {
+			continue
+		}
+		textArr = append(textArr, val)
+	}
+	return textArr
 }

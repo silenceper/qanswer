@@ -1,7 +1,8 @@
 package ocr
 
 import (
-	"github.com/otiai10/gosseract"
+	"os/exec"
+
 	"github.com/silenceper/qanswer/config"
 )
 
@@ -15,11 +16,9 @@ func NewTesseract(cfg *config.Config) *Tesseract {
 
 //GetText 根据图片路径获取识别文字
 func (tesseract *Tesseract) GetText(imgPath string) (string, error) {
-	client := gosseract.NewClient()
-	defer client.Close()
-
-	client.SetImage(imgPath)
-	client.SetLanguage("chi_sim")
-
-	return client.Text()
+	body, err := exec.Command("tesseract", imgPath, "stdout", "-l", "chi_sim").Output()
+	if err != nil {
+		return "", err
+	}
+	return string(body), nil
 }
