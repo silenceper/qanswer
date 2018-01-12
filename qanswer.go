@@ -74,7 +74,11 @@ func answerQuestion(cfg *config.Config) {
 	var questionText string
 	go func() {
 		defer wg.Done()
+		//TIPS: 去除第一个数字 1-9 题目标号
+		//虽然有12个数字，但是 10-12 与最后的数字识别混在一起了
 		questionText, err = ocr.GetText(proto.QuestionImage)
+		replaceRe, _ := regexp.Compile(`^[1-9]{0,1}\'{0,1}`)
+		questionText = replaceRe.ReplaceAllString(questionText, "")
 		if err != nil {
 			log.Errorf("识别题目失败，%v", err)
 			return
