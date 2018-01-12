@@ -1,6 +1,6 @@
 debug: true
 device: ios
-ocr_type: baidu
+ocr_type: tesseract
 wda_address: '127.0.0.1:8100'
 question_x: 30
 question_y: 250
