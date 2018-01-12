@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/url"
+	"regexp"
 	"strings"
 	"sync"
 
@@ -65,7 +66,13 @@ func (baidu *Baidu) GetText(imgPath string) (string, error) {
 		return "", err
 	}
 	var text string
-	for _, words := range wordResults.WordsResult {
+	replaceRe, _ := regexp.Compile(`^[1-9]{0,1}`)
+	for k, words := range wordResults.WordsResult {
+		//TIPS: 去除第一个数字 1-9
+		//虽然有12个字符，但是 10-12 与最后的数字识别混在一起了
+		if k == 0 {
+			words.Words = replaceRe.ReplaceAllString(words.Words, "")
+		}
 		text = fmt.Sprintf("%s\n%s", text, strings.TrimSpace(words.Words))
 	}
 	text = strings.TrimLeft(text, "\n")

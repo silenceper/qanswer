@@ -27,7 +27,7 @@ _testmain.go
 vendor/*/
 images
 cmd/images
-cmd/config.yml
+cmd/*.yml
 cmd/cmd
 cmd/bin
 qanswer

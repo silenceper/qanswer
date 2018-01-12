@@ -3,9 +3,9 @@ device: ios
 ocr_type: tesseract
 wda_address: '127.0.0.1:8100'
 question_x: 30
-question_y: 310
+question_y: 290
 question_w: 650
-question_h: 135
+question_h: 190
 answer_x: 30
 answer_y: 500
 answer_w: 680
