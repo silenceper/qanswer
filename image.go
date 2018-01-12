@@ -39,13 +39,13 @@ func saveImage(png image.Image, cfg *config.Config) error {
 
 func cutImage(src image.Image, cfg *config.Config) (questionImg image.Image, answerImg image.Image, err error) {
 	questionImg, err = util.CutImage(src, cfg.QuestionX, cfg.QuestionY, cfg.QuestionW, cfg.QuestionH)
-	//questionImg, err = util.CutImage(src, 30, 310, 650, 135)
+	// questionImg, err = util.CutImage(src, 30, 250, 660, 135)
 	if err != nil {
 		return
 	}
 
 	answerImg, err = util.CutImage(src, cfg.AnswerX, cfg.AnswerY, cfg.AnswerW, cfg.AnswerH)
-	// answerImg, err = util.CutImage(src, 30, 500, 680, 370)
+	// answerImg, err = util.CutImage(src, 30, 420, 690, 430)
 	if err != nil {
 		return
 	}

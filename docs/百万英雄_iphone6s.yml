@@ -1,0 +1,14 @@
+debug: true
+device: ios
+ocr_type: baidu
+wda_address: '127.0.0.1:8100'
+question_x: 30
+question_y: 250
+question_w: 660
+question_h: 135
+answer_x: 30
+answer_y: 420
+answer_w: 680
+answer_h: 430
+baidu_api_key: xxxxx
+baidu_secret_key: xxxx
