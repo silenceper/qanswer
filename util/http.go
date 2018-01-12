@@ -1,21 +1,41 @@
 package util
 
 import (
-	"bytes"
-	"encoding/json"
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"time"
 )
 
-//HTTPGet get 请求
-func HTTPGet(uri string) ([]byte, error) {
-	response, err := http.Get(uri)
+//HTTPGet 代理请求
+func HTTPGet(uri string, timeout int32) ([]byte, error) {
+	return HTTPGetCustom(uri, timeout, "", nil)
+}
+
+//HTTPGetCustom custom http client
+func HTTPGetCustom(uri string, timeout int32, proxyURL string, header http.Header) ([]byte, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	if proxyURL != "" {
+		proxy, _ := url.Parse(proxyURL)
+		tr.Proxy = http.ProxyURL(proxy)
+	}
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   time.Second * time.Duration(timeout),
+	}
+	req, err := http.NewRequest("GET", uri, nil)
 	if err != nil {
 		return nil, err
 	}
-
+	req.Header = header
+	response, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
 	defer response.Body.Close()
 	if response.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("http get error : uri=%v , statusCode=%v", uri, response.StatusCode)
@@ -23,33 +43,16 @@ func HTTPGet(uri string) ([]byte, error) {
 	return ioutil.ReadAll(response.Body)
 }
 
-//PostJSON post json 数据请求
-func PostJSON(uri string, obj interface{}, contentType string) ([]byte, error) {
-	jsonData, err := json.Marshal(obj)
-	if err != nil {
-		return nil, err
+//PostForm PostForm
+func PostForm(uri string, data url.Values, timeout int32) ([]byte, error) {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 	}
-
-	jsonData = bytes.Replace(jsonData, []byte("\\u003c"), []byte("<"), -1)
-	jsonData = bytes.Replace(jsonData, []byte("\\u003e"), []byte(">"), -1)
-	jsonData = bytes.Replace(jsonData, []byte("\\u0026"), []byte("&"), -1)
-
-	body := bytes.NewBuffer(jsonData)
-	response, err := http.Post(uri, contentType, body)
-	if err != nil {
-		return nil, err
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   time.Second * time.Duration(timeout),
 	}
-	defer response.Body.Close()
-
-	if response.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("http post error : uri=%v , statusCode=%v", uri, response.StatusCode)
-	}
-	return ioutil.ReadAll(response.Body)
-}
-
-//PostForm 提交表单
-func PostForm(uri string, data url.Values) ([]byte, error) {
-	response, err := http.PostForm(uri, data)
+	response, err := client.PostForm(uri, data)
 	if err != nil {
 		return nil, err
 	}

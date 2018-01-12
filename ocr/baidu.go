@@ -56,7 +56,7 @@ func (baidu *Baidu) GetText(imgPath string) (string, error) {
 
 	postData := url.Values{}
 	postData.Add("image", base64Data)
-	body, err := util.PostForm(uri, postData)
+	body, err := util.PostForm(uri, postData, 5)
 	if err != nil {
 		return "", err
 	}
@@ -87,7 +87,7 @@ func (baidu *Baidu) getAccessToken() (accessToken string, err error) {
 		return
 	}
 	uri := fmt.Sprintf("https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=%s&client_secret=%s", baidu.apiKey, baidu.secretKey)
-	body, e := util.PostJSON(uri, nil, "application/json;charset=utf-8")
+	body, e := util.PostForm(uri, nil, 5)
 	if e != nil {
 		err = e
 		return

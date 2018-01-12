@@ -35,7 +35,7 @@ func NewIOS(cfg *config.Config) *IOS {
 
 //GetImage 返回图片生成的路径
 func (ios *IOS) GetImage() (img image.Image, err error) {
-	body, e := util.HTTPGet(fmt.Sprintf("http://%s/screenshot", ios.wdaAddress))
+	body, e := util.HTTPGet(fmt.Sprintf("http://%s/screenshot", ios.wdaAddress), 3)
 	if e != nil {
 		err = fmt.Errorf("WebDriverAgentRunner 连接失败, err=%v", e)
 		return

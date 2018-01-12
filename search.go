@@ -32,7 +32,7 @@ func baiduSearch(question string, answers []string) (result []*SearchResult) {
 
 	//搜索题目
 	searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(question))
-	questionBody, err := util.HTTPGet(searchURL)
+	questionBody, err := util.HTTPGet(searchURL, 5)
 	if err != nil {
 		log.Errorf("search question:%s error", question)
 		return
@@ -54,7 +54,7 @@ func baiduSearch(question string, answers []string) (result []*SearchResult) {
 			//题目+结果搜索的总数
 			keyword := fmt.Sprintf("%s %s", question, answer)
 			searchURL := fmt.Sprintf("http://www.baidu.com/s?wd=%s", url.QueryEscape(keyword))
-			body, err := util.HTTPGet(searchURL)
+			body, err := util.HTTPGet(searchURL, 5)
 			if err != nil {
 				log.Errorf("search %s error", answer)
 			} else {
