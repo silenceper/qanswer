@@ -8,7 +8,7 @@
 
 分析结果：
 
-![结果](./docs/answer.png)
+![结果](./docs/answer.jpeg)
 
 **结果说明：**
 
