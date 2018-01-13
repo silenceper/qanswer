@@ -71,7 +71,14 @@ baidu_secret_key: "xxx...."
 ### Android
 `device: android`
 
-> TIPS:未验证
+##### 安装ADB
+
+安装完后插入安卓设备且安卓已打开 USB 调试模式，终端输入 `adb devices `，显示设备号则表示成功。
+
+```
+List of devices attached
+MWUBB17518200733	device
+```
 
 
 
@@ -99,10 +106,5 @@ wget https://github.com/tesseract-ocr/tessdata/raw/master/chi_sim.traineddata
 
 ### TODO:
 
-- 验证android adb方式
-- 更友好，更快的展示
-- 支持google搜索
 - 不同机型，不同答题app的配置参数
-
-
-> 作者是在mac+ios的平台上验证，其他平台暂未验证，本代码只供交流学习使用。
+- 支持google搜索
