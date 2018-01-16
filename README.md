@@ -19,14 +19,18 @@
 结果并不是100%的，只给出一个参考值，还需用户自己判断。理论上可支持多款APP，只需要修改`config.yml`中的题目和答案的截取位置即可。
 
 
-## 编译安装
+## 安装
+
+##### 手动编译
 
 - 安装go环境
 - 将本项目放入gopath中
 - 通过[govendor](https://github.com/kardianos/govendor)进行依赖管理，执行`govendor sync`下载依赖
 - 执行`make build`会在当前目录生成`qanswer`文件
 
+##### 直接下载
 
+根据运行平台可以直接在这里下载： [releases](https://github.com/silenceper/qanswer/releases)
 
 ### 配置文件
 
