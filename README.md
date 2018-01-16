@@ -21,7 +21,12 @@
 
 ## 编译安装
 
-安装go环境，执行 `make build` 生成`qanswer`可执行文件。
+- 安装go环境
+- 将本项目放入gopath中
+- 通过[govendor](https://github.com/kardianos/govendor)进行依赖管理，执行`govendor sync`下载依赖
+- 执行`make build`会在当前目录生成`qanswer`文件
+
+
 
 ### 配置文件
 
