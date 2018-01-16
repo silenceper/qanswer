@@ -77,8 +77,9 @@ baidu_secret_key: "xxx...."
 
 
 - 安装WDA ：[iOS 真机如何安装 WebDriverAgent](https://testerhome.com/topics/7220)
-- 编译得到`qanswer`文件
-- 根据设备尺寸以及答题APP，修改题目和答案截取位置参数，并且指定`wda_address` WDA 连接地址
+- 编译或直接下载编译好的`qanswer`文件
+- 修改配置文件：根据设备尺寸以及答题APP，修改题目和答案截取位置参数，并且指定`wda_address` WDA 连接地址
+- 执行`./qanswer`，也可以通过`-config`参数指定配置文件地址
 - 按空格键开始
 
 
