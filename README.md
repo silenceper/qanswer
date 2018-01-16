@@ -25,19 +25,19 @@
 
 
 ## 安装
-
-##### 手动编译
+有两种方式：
+##### 1.手动编译
 
 - 安装go环境
 - 将本项目放入gopath中
 - 通过[govendor](https://github.com/kardianos/govendor)进行依赖管理，执行`govendor sync`下载依赖
 - 执行`make build`会在当前目录生成`qanswer`文件
 
-##### 直接下载
+##### 2.直接下载
 
 根据运行平台可以直接在这里下载： [releases](https://github.com/silenceper/qanswer/releases)
 
-### 配置文件
+### 配置文件说明
 
 默认为`./config.yml`文件，也可通过`-config`参数指定自定义路径。
 
